@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 let ENV_FILE_NAME = "";
 switch (process.env.NODE_ENV) {
   case "production":
+    console.log('Loading .env.production')
     ENV_FILE_NAME = ".env.production";
     break;
   case "staging":
@@ -47,6 +48,7 @@ const plugins = [
     /** @type {import('@medusajs/admin').PluginOptions} */
     options: {
       autoRebuild: true,
+      serve: process.env.NODE_ENV === "development",
       develop: {
         open: process.env.OPEN_BROWSER !== "false",
       },
@@ -75,6 +77,7 @@ const projectConfig = {
   cookieSecret: process.env.COOKIE_SECRET,
   store_cors: STORE_CORS,
   database_url: DATABASE_URL,
+  worker_mode: process.env.MEDUSA_WORKER_MODE,
   admin_cors: ADMIN_CORS,
   // Uncomment the following lines to enable REDIS
   // redis_url: REDIS_URL
